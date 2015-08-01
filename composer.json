@@ -1,0 +1,23 @@
+{
+	"name": "dimadin/cloudflare-purge",
+	"description": "Simple full HTML page cache purger for CloudFlare®",
+	"keywords": ["wordpress"],
+	"type": "wordpress-plugin",
+	"homepage": "http://blog.milandinic.com/wordpress/plugins/cloudflare-purge/",
+	"license": "GPL-2.0+",
+	"authors": [
+		{
+			"name": "Milan Dinić",
+			"email": "milan@srpski.biz",
+			"homepage": "http://blog.milandinic.com/"
+		}
+	],
+	"support": {
+		"issues": "https://github.com/dimadin/cloudflare-purge/issues",
+		"source": "https://github.com/dimadin/cloudflare-purge"
+	},
+	"require": {
+		"composer/installers": "~1.0",
+		"dimadin/wp-temporary": "dev-master"
+	}
+}
