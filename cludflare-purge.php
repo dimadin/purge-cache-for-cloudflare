@@ -126,6 +126,9 @@ class CloudFlare_Purge {
 
 		// Register plugins action links filter
 		add_filter( 'plugin_action_links_' . $this->basename, array( $this, 'action_links' ) );
+
+		// Clean expired temporaries
+		add_action( 'wp_scheduled_delete', array( 'WP_Temporary', 'clean' ) );
 	}
 
 	/**
