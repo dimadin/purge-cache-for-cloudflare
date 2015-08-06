@@ -176,7 +176,7 @@ class CloudFlare_Purge {
 	 */
 	public function action_links( $links ) {
 		$links['donate']   = '<a href="http://blog.milandinic.com/donate/">' . __( 'Donate', 'cloudflare-purge' ) . '</a>';
-		$links['settings'] = '<a href="' . $this->settings_page_url() . '">' . _x( 'Settings', 'plugin actions link', 'cloudflare-purge' ) . '</a>';
+		$links['settings'] = '<a href="' . esc_url( $this->settings_page_url() ) . '">' . _x( 'Settings', 'plugin actions link', 'cloudflare-purge' ) . '</a>';
 		$links['purgeall'] = '<a href="' . esc_url( add_query_arg( array( 'page' => 'cloudflare-purge-all' ), admin_url( 'options.php' ) ) ) . '">' . _x( 'Purge All', 'plugin actions link', 'cloudflare-purge' ) . '</a>';
 
 		return $links;
