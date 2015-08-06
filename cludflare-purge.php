@@ -115,6 +115,9 @@ class CloudFlare_Purge {
 		// Purge all files on shutdown
 		add_action( 'shutdown',               array( $this, 'maybe_purge'            ), 10    );
 
+		// Rewrite all links to include nocache string
+		add_action( 'wp_loaded',              array( $this, 'nocache_start_ob'       ), 1     );
+
 		// Include and load admin class
 		add_action( 'admin_menu',             array( $this, 'admin_menu'             ), 1     );
 
@@ -555,6 +558,73 @@ class CloudFlare_Purge {
 		if ( get_option( 'cloudflare_purge_urls' ) && $this->can_fetch() ) {
 			$this->purge_urls();
 		}
+	}
+
+	/**
+	 * Catch response to rewrite all links to nocache variants.
+	 *
+	 * @access public
+	 */
+	public function nocache_start_ob() {
+		if ( ! is_user_logged_in() ) {
+			return;
+		}
+
+		// Hook end catcher and rewriter
+		add_action( 'wp_footer',    array( $this, 'nocache_end_ob' ), 999 );
+		add_action( 'admin_footer', array( $this, 'nocache_end_ob' ), 999 );
+
+		ob_start();
+	}
+
+	/**
+	 * Rewrite all links in a response to nocache variants.
+	 *
+	 * @access public
+	 */
+	public function nocache_end_ob() {
+		$content = ob_get_clean();
+
+		if ( ! $content ) {
+			return;
+		}
+
+		$domain = parse_url( site_url(), PHP_URL_HOST );
+
+		$new_content = $content;
+
+		// Disable libxml errors and store them in internal buffer per http://stackoverflow.com/a/26853864
+		libxml_use_internal_errors( true );
+
+		// Get all links in a post via http://stackoverflow.com/a/1519791
+		$doc = new DOMDocument();
+		$doc->loadHTML( $content );
+
+		$xpath = new DOMXPath( $doc );
+		$nodeList = $xpath->query( '//a/@href' );
+
+		for ( $i = 0; $i < $nodeList->length; $i++ ) {
+			// Xpath query for attributes gives a NodeList containing DOMAttr objects.
+			// http://php.net/manual/en/class.domattr.php
+			$old_url = $nodeList->item( $i )->value;
+
+			// If there is link to admin or external site, continue
+			if ( strpos( $old_url, 'wp-' ) || ! strpos( $old_url, $domain ) ) {
+				continue;
+			}
+
+			// Form new URL by suffixing it with nocache string
+			$new_url = add_query_arg( $this->nocache_string() . 'nocache', 'true', $old_url );
+
+			// URL can be surrounded by both types
+			$new_content = str_replace( '"' . $old_url . '"', '"' . $new_url . '"', $new_content );
+			$new_content = str_replace( "'" . $old_url . "'", "'" . $new_url . "'", $new_content );
+		}
+
+		// Clear libxml error buffer
+		libxml_clear_errors();
+
+		echo $new_content;
 	}
 }
 endif;
