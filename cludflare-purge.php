@@ -177,6 +177,7 @@ class CloudFlare_Purge {
 	public function action_links( $links ) {
 		$links['donate']   = '<a href="http://blog.milandinic.com/donate/">' . __( 'Donate', 'cloudflare-purge' ) . '</a>';
 		$links['settings'] = '<a href="' . $this->settings_page_url() . '">' . _x( 'Settings', 'plugin actions link', 'cloudflare-purge' ) . '</a>';
+		$links['purgeall'] = '<a href="' . esc_url( add_query_arg( array( 'page' => 'cloudflare-purge-all' ), admin_url( 'options.php' ) ) ) . '">' . _x( 'Purge All', 'plugin actions link', 'cloudflare-purge' ) . '</a>';
 
 		return $links;
 	}
@@ -356,6 +357,28 @@ class CloudFlare_Purge {
 		if ( 200 == wp_remote_retrieve_response_code( $response ) ) {
 			$this->remove_urls( $urls );
 		}
+
+		return $response;
+	}
+
+	/**
+	 * Purge all files from CloudFlare cache.
+	 *
+	 * @access public
+	 *
+	 * @return WP_Error|array $response The response or WP_Error on failure. 
+	 */
+	public function purge_all() {
+		$args = array(
+			'method' => 'DELETE',
+			'body'   => json_encode(
+				array(
+					'purge_everything' => true,
+				)
+			),
+		);
+
+		$response = $this->request( 'zones/' . $this->get_zone_id() . '/purge_cache', $args );
 
 		return $response;
 	}

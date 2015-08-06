@@ -28,8 +28,14 @@ class CloudFlare_Purge_Admin {
 	 * @access public
 	 */
 	public function __construct() {
+		// Initialize main class
+		$this->cloudflare_purge = CloudFlare_Purge::get_instance();
+
 		// Register settings
-		add_action( 'admin_init', array( $this, 'register_settings' ) );
+		add_action( 'admin_init', array( $this, 'register_settings'       )     );
+
+		// Register purge all page
+		add_action( 'admin_menu', array( $this, 'register_purge_all_page' ), 10 );
 	}
 
 	/**
@@ -175,6 +181,60 @@ class CloudFlare_Purge_Admin {
 		}
 
 		return $settings;
+	}
+
+	/**
+	 * Register page for purging all files.
+	 *
+	 * @access public
+	 */
+	public function register_purge_all_page() {
+        add_submenu_page(
+			'options.php',
+			__( 'CloudFlare Purge All', 'cloudflare-purge' ),
+			__( 'CloudFlare Purge All', 'cloudflare-purge' ),
+			'activate_plugins',
+			'cloudflare-purge-all',
+			array( $this, 'display_purge_all_page' )
+		);
+	}
+
+	/**
+	 * Display settings page.
+	 *
+	 * @access public
+	 */
+	public function display_purge_all_page() {
+		// Handle submission
+		if ( isset( $_GET['action'] )
+			&& 'purge-all' == $_GET['action']
+			&& wp_verify_nonce( $_GET['_wpnonce'], 'cloudflare-purge-all' )
+			&& current_user_can( 'activate_plugins' )
+			) {
+			$this->cloudflare_purge->purge_all();
+
+			// Prepare URL for redirection
+			$url = add_query_arg( array( 'page' => 'cloudflare-purge-all', 'action' => 'purged' ), admin_url( 'options.php' ) );
+
+			// Redirect to previous page
+			wp_safe_redirect( $url );
+			exit;
+		}
+
+		// Prepare URL for request
+		$url = wp_nonce_url( add_query_arg( array( 'page' => 'cloudflare-purge-all', 'action' => 'purge-all' ), admin_url( 'options.php' ) ), 'cloudflare-purge-all' );
+
+		// Display page content
+		?>
+		<div class="wrap">
+			<?php if ( isset( $_GET['action'] )	&& 'purged' == $_GET['action'] ) : ?>
+				<div><?php _e( 'Request for purging sent.', 'cloudflare-purge' ); ?></div>
+			<?php else : ?>
+				<div><?php _e( 'Are you sure you want to purge all URLs from CloudFlare cache?', 'cloudflare-purge' ); ?></div>
+				<div><a href="<?php echo $url; ?>" class="button"><?php _e( 'Yes, purge all', 'cloudflare-purge' ); ?></a></div>
+			<?php endif; ?>
+		</div>
+		<?php
 	}
 }
 endif;
