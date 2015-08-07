@@ -127,6 +127,9 @@ class CloudFlare_Purge {
 		// Register plugins action links filter
 		add_filter( 'plugin_action_links_' . $this->basename, array( $this, 'action_links' ) );
 
+		// Empty data for current commenter
+		add_filter( 'wp_get_current_commenter', array( $this, 'wp_get_current_commenter' ), 10 );
+
 		// Clean expired temporaries
 		add_action( 'wp_scheduled_delete', array( 'WP_Temporary', 'clean' ) );
 	}
@@ -584,6 +587,42 @@ class CloudFlare_Purge {
 		if ( get_option( 'cloudflare_purge_urls' ) && $this->can_fetch() ) {
 			$this->purge_urls();
 		}
+	}
+
+	/**
+	 * Return empty values for current commenter data.
+	 *
+	 * @access public
+	 *
+	 * @param array $comment_author_data {
+	 *     Array of arguments of current commenter.
+	 *
+	 *     @type string $comment_author       The name of the author of the comment. Default empty.
+	 *     @type string $comment_author_email The email address of the `$comment_author`. Default empty.
+	 *     @type string $comment_author_url   The URL address of the `$comment_author`. Default empty.
+	 * }
+	 * @return array $comment_author_data Modified array of arguments of current commenter.
+	 */
+	public function wp_get_current_commenter( $comment_author_data ) {
+		// Return standard when comment is just posted
+		$nocache = $this->nocache_string() . 'nocache';
+
+		if ( isset( $_GET[ $nocache ] )
+			&& ( 'true' == $_GET[ $nocache ] )
+			&& isset( $_GET['comment-posted'] )
+			&& ( 'true' == $_GET['comment-posted'] )
+		) {
+			return $comment_author_data;
+		}
+
+		// Otherwise, return empty data
+		$comment_author_data = array(
+			'comment_author'       => '',
+			'comment_author_email' => '',
+			'comment_author_url'   => '',
+		);
+
+		return $comment_author_data;
 	}
 
 	/**
