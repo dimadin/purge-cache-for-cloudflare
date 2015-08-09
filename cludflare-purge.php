@@ -205,7 +205,7 @@ class CloudFlare_Purge {
 			$requests = 1;
 		}
 
-		if ( 1200 > $limit ) {
+		if ( 1200 > $requests ) {
 			return $requests;
 		} else {
 			return false;
