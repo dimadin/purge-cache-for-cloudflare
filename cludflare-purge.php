@@ -528,7 +528,16 @@ class CloudFlare_Purge {
 		// Only return unique URLs
 		$urls = array_unique( $urls );
 
-		return $urls;
+		// Create new array of URLs
+		$new_key = 0;
+		$new_urls = array();
+
+		foreach ( $urls as $url ) {
+			$new_urls[ $new_key ] = $url;
+			$new_key++;
+		}
+
+		return $new_urls;
 	}
 
 	/**
