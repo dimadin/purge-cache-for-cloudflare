@@ -287,6 +287,9 @@ class CloudFlare_Purge {
 			return new WP_Error( 'cloudflare-purge-requests-limit', __( 'Requests limit passed.' ), 429 );
 		}
 
+		// Save new number of requests in this interval
+		WP_Temporary::update( 'cloudflare_purge_requests_limit', $requests + 1, 15 * MINUTE_IN_SECONDS );
+
 		$defaults = array(
 			'headers' => array(
 				'X-Auth-Email' => $this->email,
@@ -298,9 +301,6 @@ class CloudFlare_Purge {
 		$r = wp_parse_args( $args, $defaults );
 
 		$response = wp_remote_request( $this->base_endpoint . $endpoint, $r );
-
-		// Save new number of requests in this interval
-		WP_Temporary::update( 'cloudflare_purge_requests_limit', $requests + 1, 15 * MINUTE_IN_SECONDS );
 
 		return $response;
 	}
