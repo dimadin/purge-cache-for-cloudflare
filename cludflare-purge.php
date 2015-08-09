@@ -223,10 +223,9 @@ class CloudFlare_Purge {
 		/**
 		 * Filter value of cache timeout.
 		 *
-		 * @param int   $timeout Value of cache timeout. Default 1800.
-		 * @param array $headers An array of existing headers.
+		 * @param int $timeout Value of cache timeout. Default 1800.
 		 */
-		$timeout = absint( apply_filters( 'cloudflare_purge_cache_timeout', 30 * MINUTE_IN_SECONDS, $headers ) );
+		$timeout = absint( apply_filters( 'cloudflare_purge_cache_timeout', 30 * MINUTE_IN_SECONDS ) );
 
 		return $timeout;
 	}
