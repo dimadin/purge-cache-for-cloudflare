@@ -100,8 +100,8 @@ class CloudFlare_Purge {
 		$this->basename = plugin_basename( __FILE__ );
 
 		// Set CloudFlare API values
-		$this->api_key = get_option( 'cloudflare_purge_api_key' );
-		$this->email   = get_option( 'cloudflare_purge_mail' );
+		$this->api_key = get_option( 'cloudflare_purge_api_key'           );
+		$this->email   = get_option( 'cloudflare_purge_api_email_address' );
 
 		// Load translations
 		load_plugin_textdomain( 'cloudflare-purge', false, dirname( $this->basename ) . '/languages' );
@@ -219,7 +219,7 @@ class CloudFlare_Purge {
 	 *
 	 * @return int $timeout Value of cache timeout. Default 1800.
 	 */
-	public function page_cache_timeout() {
+	public function cache_timeout() {
 		/**
 		 * Filter value of cache timeout.
 		 *
@@ -436,7 +436,7 @@ class CloudFlare_Purge {
 	public function wp_headers( $headers ) {
 		if ( ! is_user_logged_in() ) {
 			// Allow value of cache timeout to be filtered
-			$timeout = $this->page_cache_timeout();
+			$timeout = $this->cache_timeout();
 
 			$headers['Cache-Control'] = 'public, max-age=' . $timeout;
 		}
@@ -467,7 +467,7 @@ class CloudFlare_Purge {
 		$option[] = array(
 			'url'      => $url,
 			'priority' => $priority,
-			'expires'  => time() + $this->page_cache_timeout(),
+			'expires'  => time() + $this->cache_timeout(),
 		);
 
 		update_option( 'cloudflare_purge_urls', $option );

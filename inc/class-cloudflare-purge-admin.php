@@ -103,11 +103,11 @@ class CloudFlare_Purge_Admin {
 		// Get name of the page
 		$section = $this->get_settings_section();
 
-		add_settings_field( 'cloudflare_purge_api_key', __( 'CloudFlare API Key',           'cloudflare-purge' ), array( $this, 'render_api_key' ), $page, $section );
-		add_settings_field( 'cloudflare_purge_mail',    __( 'CloudFlare API Email Address', 'cloudflare-purge' ), array( $this, 'render_email'   ), $page, $section );
+		add_settings_field( 'cloudflare_purge_api_key',           __( 'CloudFlare API Key',           'cloudflare-purge' ), array( $this, 'render_api_key' ), $page, $section );
+		add_settings_field( 'cloudflare_purge_api_email_address', __( 'CloudFlare API Email Address', 'cloudflare-purge' ), array( $this, 'render_email'   ), $page, $section );
 
-		register_setting( $page, 'cloudflare_purge_api_key', array( $this, 'validate_settings' ) );
-		register_setting( $page, 'cloudflare_purge_mail',    array( $this, 'validate_email'    ) );
+		register_setting( $section, 'cloudflare_purge_api_key',           'sanitize_key' );
+		register_setting( $section, 'cloudflare_purge_api_email_address', 'is_email'     );
 
 		/**
 		 * Fires after settings fields are registered.
@@ -139,48 +139,14 @@ class CloudFlare_Purge_Admin {
 	 * @access public
 	 */
 	public function render_email() {
-		$email = get_option( 'cloudflare_purge_mail' );
+		$email = get_option( 'cloudflare_purge_api_email_address' );
 		?>
-		<label for="cloudflare_purge_mail">
-		<input type="text" id="cloudflare_purge_mail" class="regular-text ltr" name="cloudflare_purge_mail" value="<?php echo esc_attr( $email ); ?>" />
+		<label for="cloudflare_purge_api_email_address">
+		<input type="text" id="cloudflare_purge_api_email_address" class="regular-text ltr" name="cloudflare_purge_api_email_address" value="<?php echo esc_attr( $email ); ?>" />
 		</label>
 		<br />
 		<span class="description"><?php _e( 'The email address that you use with your CloudFlare account.', 'cloudflare-purge' ); ?></span>
 		<?php
-	}
-
-	/**
-	 * Validate settings fields submission.
-	 *
-	 * Make submitted value a string.
-	 *
-	 * @access public
-	 *
-	 * @param  string $setting     Setting value.
-	 * @return string $new_setting Validated setting value.
-	 */
-	public function validate_settings( $setting ) {
-		$new_setting = (string) $setting;
-		return $new_setting;
-	}
-
-	/**
-	 * Validate email setting field submission.
-	 *
-	 * Check if submitted value is email address
-	 * and remove it if it isn't.
-	 *
-	 * @access public
-	 *
-	 * @param  string $setting     Setting value.
-	 * @return string $new_setting Validated setting value.
-	 */
-	public function validate_email( $settings ) {
-		if ( ! is_email( $settings ) ) {
-			return '';
-		}
-
-		return $settings;
 	}
 
 	/**

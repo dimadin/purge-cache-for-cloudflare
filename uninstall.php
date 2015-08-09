@@ -18,9 +18,9 @@ require __DIR__ . '/vendor/autoload.php';
 /*
  * Remove options on uninstallation of plugin.
  */
-delete_option( 'cloudflare_purge_api_key' );
-delete_option( 'cloudflare_purge_mail'    );
-delete_option( 'cloudflare_purge_urls'    );
+delete_option( 'cloudflare_purge_api_key'           );
+delete_option( 'cloudflare_purge_api_email_address' );
+delete_option( 'cloudflare_purge_urls'              );
 
 /*
  * Clean expired temporaries on uninstallation of plugin.
