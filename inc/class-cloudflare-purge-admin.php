@@ -92,6 +92,24 @@ class CloudFlare_Purge_Admin {
 	}
 
 	/**
+	 * Get name of the option group where do settings fields appear.
+	 *
+	 * @access public
+	 *
+	 * @return string $option_group Name of the option group. Default 'writing'.
+	 */
+	public function get_option_group() {
+		/**
+		 * Filter name of the option group.
+		 *
+		 * @param string $option_group Name of the option group. Default 'writting'.
+		 */
+		$option_group = apply_filters( 'cloudflare_purge_admin_option_group_name', 'writing' );
+
+		return $option_group;
+	}
+
+	/**
 	 * Register settings fields.
 	 *
 	 * @access public
@@ -103,11 +121,14 @@ class CloudFlare_Purge_Admin {
 		// Get name of the page
 		$section = $this->get_settings_section();
 
+		// Get name of the option_group
+		$option_group = $this->get_option_group();
+
 		add_settings_field( 'cloudflare_purge_api_key',           __( 'CloudFlare API Key',           'cloudflare-purge' ), array( $this, 'render_api_key' ), $page, $section );
 		add_settings_field( 'cloudflare_purge_api_email_address', __( 'CloudFlare API Email Address', 'cloudflare-purge' ), array( $this, 'render_email'   ), $page, $section );
 
-		register_setting( $section, 'cloudflare_purge_api_key',           'sanitize_key' );
-		register_setting( $section, 'cloudflare_purge_api_email_address', 'is_email'     );
+		register_setting( $option_group, 'cloudflare_purge_api_key',           'sanitize_key' );
+		register_setting( $option_group, 'cloudflare_purge_api_email_address', 'is_email'     );
 
 		/**
 		 * Fires after settings fields are registered.
