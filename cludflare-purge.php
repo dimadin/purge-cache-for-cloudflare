@@ -185,7 +185,7 @@ class CloudFlare_Purge {
 		$links['settings'] = '<a href="' . esc_url( $this->settings_page_url() ) . '">' . _x( 'Settings', 'plugin actions link', 'cloudflare-purge' ) . '</a>';
 		$links['purgeall'] = '<a href="' . esc_url( add_query_arg( array( 'page' => 'cloudflare-purge-all' ), admin_url( 'options.php' ) ) ) . '">' . _x( 'Purge All', 'plugin actions link', 'cloudflare-purge' ) . '</a>';
 		$links['wpdev']    = '<a href="http://blog.milandinic.com/wordpress/custom-development/">' . __( 'WordPress Developer', 'cloudflare-purge' ) . '</a>';
-		$links['premiums'] = '<strong><a href="https://shop.milandinic.com/">' . __( 'Premium Version', 'cloudflare-purge' ) . '</a></strong>';
+		$links['premium']  = '<strong><a href="https://shop.milandinic.com/">' . __( 'Premium Version', 'cloudflare-purge' ) . '</a></strong>';
 
 		return $links;
 	}
