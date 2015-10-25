@@ -1,5 +1,5 @@
 {
-	"name": "dimadin/cloudflare-purge",
+	"name": "dimadin/purge-cache-for-cloudflare",
 	"description": "Simple full HTML page cache purger for CloudFlare®",
 	"keywords": ["wordpress"],
 	"type": "wordpress-plugin",
@@ -13,8 +13,8 @@
 		}
 	],
 	"support": {
-		"issues": "https://github.com/dimadin/cloudflare-purge/issues",
-		"source": "https://github.com/dimadin/cloudflare-purge"
+		"issues": "https://github.com/dimadin/purge-cache-for-cloudflare/issues",
+		"source": "https://github.com/dimadin/purge-cache-for-cloudflare"
 	},
 	"require": {
 		"composer/installers": "~1.0",
