@@ -11,7 +11,7 @@
 
 /**
  * Plugin Name: Purge Cache for CloudFlare®
- * Plugin URI:  http://blog.milandinic.com/wordpress/plugins/
+ * Plugin URI:  http://blog.milandinic.com/wordpress/plugins/purge-cache-for-cloudflare/
  * Description: Simple full HTML page cache purger for CloudFlare®.
  * Author:      Milan Dinić
  * Author URI:  http://blog.milandinic.com/
@@ -185,7 +185,7 @@ class Purge_Cache_for_CloudFlare {
 		$links['settings'] = '<a href="' . esc_url( $this->settings_page_url() ) . '">' . _x( 'Settings', 'plugin actions link', 'purge-cache-for-cloudflare' ) . '</a>';
 		$links['purgeall'] = '<a href="' . esc_url( add_query_arg( array( 'page' => 'cloudflare-purge-all' ), admin_url( 'options.php' ) ) ) . '">' . _x( 'Purge All', 'plugin actions link', 'purge-cache-for-cloudflare' ) . '</a>';
 		$links['wpdev']    = '<a href="http://blog.milandinic.com/wordpress/custom-development/">' . __( 'WordPress Developer', 'purge-cache-for-cloudflare' ) . '</a>';
-		$links['premium']  = '<strong><a href="https://shop.milandinic.com/">' . __( 'Premium Version', 'purge-cache-for-cloudflare' ) . '</a></strong>';
+		$links['premium']  = '<strong><a href="https://shop.milandinic.com/downloads/purge-cache-for-cloudflare-plus/">' . __( 'Premium Version', 'purge-cache-for-cloudflare' ) . '</a></strong>';
 
 		return $links;
 	}
