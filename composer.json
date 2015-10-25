@@ -3,7 +3,7 @@
 	"description": "Simple full HTML page cache purger for CloudFlare®",
 	"keywords": ["wordpress"],
 	"type": "wordpress-plugin",
-	"homepage": "http://blog.milandinic.com/wordpress/plugins/cloudflare-purge/",
+	"homepage": "http://blog.milandinic.com/wordpress/plugins/purge-cache-for-cloudflare/",
 	"license": "GPL-2.0+",
 	"authors": [
 		{

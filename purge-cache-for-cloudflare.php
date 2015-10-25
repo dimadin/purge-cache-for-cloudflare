@@ -1,22 +1,22 @@
 <?php
 
 /**
- * The CloudFlare® Purge Plugin
+ * The Purge Cache for CloudFlare® Plugin
  *
  * Simple full HTML page cache purger for CloudFlare®.
  *
- * @package    CloudFlare_Purge
+ * @package    Purge_Cache_for_CloudFlare
  * @subpackage Main
  */
 
 /**
- * Plugin Name: CloudFlare® Purge
+ * Plugin Name: Purge Cache for CloudFlare®
  * Plugin URI:  http://blog.milandinic.com/wordpress/plugins/
  * Description: Simple full HTML page cache purger for CloudFlare®.
  * Author:      Milan Dinić
  * Author URI:  http://blog.milandinic.com/
- * Version:     0.5-beta-1
- * Text Domain: cloudflare-purge
+ * Version:     0.6-beta-1
+ * Text Domain: purge-cache-for-cloudflare
  * Domain Path: /languages/
  * License:     GPL
  */
@@ -33,15 +33,15 @@ require __DIR__ . '/vendor/autoload.php';
  * Load class when all plugins are loaded
  * so that other plugins can overwrite it.
  */
-add_action( 'plugins_loaded', array( 'CloudFlare_Purge', 'plugins_loaded' ), 10 );
+add_action( 'plugins_loaded', array( 'Purge_Cache_for_CloudFlare', 'plugins_loaded' ), 10 );
 
-if ( ! class_exists( 'CloudFlare_Purge' ) ) :
+if ( ! class_exists( 'Purge_Cache_for_CloudFlare' ) ) :
 /**
- * CloudFlare Purge main class.
+ * Purge Cache for CloudFlare main class.
  *
  * Simple full HTML page cache purger for CloudFlare.
  */
-class CloudFlare_Purge {
+class Purge_Cache_for_CloudFlare {
 	/**
 	 * CloudFlare API base endpoint.
 	 *
@@ -100,11 +100,11 @@ class CloudFlare_Purge {
 		$this->basename = plugin_basename( __FILE__ );
 
 		// Set CloudFlare API values
-		$this->api_key = get_option( 'cloudflare_purge_api_key'           );
-		$this->email   = get_option( 'cloudflare_purge_api_email_address' );
+		$this->api_key = get_option( 'purge_cache_for_cloudflare_api_key'           );
+		$this->email   = get_option( 'purge_cache_for_cloudflare_api_email_address' );
 
 		// Load translations
-		load_plugin_textdomain( 'cloudflare-purge', false, dirname( $this->basename ) . '/languages' );
+		load_plugin_textdomain( 'purge-cache-for-cloudflare', false, dirname( $this->basename ) . '/languages' );
 
 		// Delete expired URLs from option
 		add_action( 'wp_scheduled_delete',    array( $this, 'purge_expired_urls'     )        );
@@ -135,17 +135,17 @@ class CloudFlare_Purge {
 	}
 
 	/**
-	 * Initialize CloudFlare_Purge object.
+	 * Initialize Purge_Cache_for_CloudFlare object.
 	 *
 	 * @access public
 	 *
-	 * @return CloudFlare_Purge $instance Instance of CloudFlare_Purge class.
+	 * @return Purge_Cache_for_CloudFlare $instance Instance of Purge_Cache_for_CloudFlare class.
 	 */
 	public static function &get_instance() {
 		static $instance = false;
 
 		if ( !$instance ) {
-			$instance = new CloudFlare_Purge;
+			$instance = new Purge_Cache_for_CloudFlare;
 		}
 
 		return $instance;
@@ -158,7 +158,7 @@ class CloudFlare_Purge {
 	 */
 	public static function plugins_loaded() {
 		// Initialize class
-		$cloudflare_purge = CloudFlare_Purge::get_instance();
+		$purge_cache_for_cloudflare = Purge_Cache_for_CloudFlare::get_instance();
 	}
 
 	/**
@@ -167,9 +167,9 @@ class CloudFlare_Purge {
 	 * @access public
 	 */
 	public function admin_menu() {
-		require_once $this->path . '/inc/class-cloudflare-purge-admin.php';
+		require_once $this->path . '/inc/class-purge-cache-for-cloudflare-admin.php';
 
-		CloudFlare_Purge_Admin::get_instance();
+		Purge_Cache_for_CloudFlare_Admin::get_instance();
 	}
 
 	/**
@@ -181,11 +181,11 @@ class CloudFlare_Purge {
 	 * @return array $links New plugin's action links.
 	 */
 	public function action_links( $links ) {
-		$links['donate']   = '<a href="http://blog.milandinic.com/donate/">' . __( 'Donate', 'cloudflare-purge' ) . '</a>';
-		$links['settings'] = '<a href="' . esc_url( $this->settings_page_url() ) . '">' . _x( 'Settings', 'plugin actions link', 'cloudflare-purge' ) . '</a>';
-		$links['purgeall'] = '<a href="' . esc_url( add_query_arg( array( 'page' => 'cloudflare-purge-all' ), admin_url( 'options.php' ) ) ) . '">' . _x( 'Purge All', 'plugin actions link', 'cloudflare-purge' ) . '</a>';
-		$links['wpdev']    = '<a href="http://blog.milandinic.com/wordpress/custom-development/">' . __( 'WordPress Developer', 'cloudflare-purge' ) . '</a>';
-		$links['premium']  = '<strong><a href="https://shop.milandinic.com/">' . __( 'Premium Version', 'cloudflare-purge' ) . '</a></strong>';
+		$links['donate']   = '<a href="http://blog.milandinic.com/donate/">' . __( 'Donate', 'purge-cache-for-cloudflare' ) . '</a>';
+		$links['settings'] = '<a href="' . esc_url( $this->settings_page_url() ) . '">' . _x( 'Settings', 'plugin actions link', 'purge-cache-for-cloudflare' ) . '</a>';
+		$links['purgeall'] = '<a href="' . esc_url( add_query_arg( array( 'page' => 'cloudflare-purge-all' ), admin_url( 'options.php' ) ) ) . '">' . _x( 'Purge All', 'plugin actions link', 'purge-cache-for-cloudflare' ) . '</a>';
+		$links['wpdev']    = '<a href="http://blog.milandinic.com/wordpress/custom-development/">' . __( 'WordPress Developer', 'purge-cache-for-cloudflare' ) . '</a>';
+		$links['premium']  = '<strong><a href="https://shop.milandinic.com/">' . __( 'Premium Version', 'purge-cache-for-cloudflare' ) . '</a></strong>';
 
 		return $links;
 	}
@@ -202,7 +202,7 @@ class CloudFlare_Purge {
 	 */
 	public function can_fetch() {
 		// Check how much requests are already performed in this interval
-		$requests = WP_Temporary::get( 'cloudflare_purge_requests_limit' );
+		$requests = WP_Temporary::get( 'purge_cache_for_cloudflare_requests_limit' );
 		if ( ! $requests ) {
 			$requests = 1;
 		}
@@ -227,7 +227,7 @@ class CloudFlare_Purge {
 		 *
 		 * @param int $timeout Value of cache timeout. Default 1800.
 		 */
-		$timeout = absint( apply_filters( 'cloudflare_purge_cache_timeout', 30 * MINUTE_IN_SECONDS ) );
+		$timeout = absint( apply_filters( 'purge_cache_for_cloudflare_cache_timeout', 30 * MINUTE_IN_SECONDS ) );
 
 		return $timeout;
 	}
@@ -245,7 +245,7 @@ class CloudFlare_Purge {
 		 *
 		 * @param string $nocache_string Value of nocache string. Default 'wp-'.
 		 */
-		$nocache_string = apply_filters( 'cloudflare_purge_nocache_string', 'wp-' );
+		$nocache_string = apply_filters( 'purge_cache_for_cloudflare_nocache_string', 'wp-' );
 
 		return $nocache_string;
 	}
@@ -267,7 +267,7 @@ class CloudFlare_Purge {
 		 * @param string $url Value of settings page URL.
 		 *                     Default URL of Settings > Writting.
 		 */
-		$url = apply_filters( 'cloudflare_purge_settings_page_url', $url );
+		$url = apply_filters( 'purge_cache_for_cloudflare_settings_page_url', $url );
 
 		return $url;
 	}
@@ -286,11 +286,11 @@ class CloudFlare_Purge {
 		$requests = $this->can_fetch();
 
 		if ( ! $requests ) {
-			return new WP_Error( 'cloudflare-purge-requests-limit', __( 'Requests limit passed.' ), 429 );
+			return new WP_Error( 'purge-cache-for-cloudflare-requests-limit', __( 'Requests limit passed.' ), 429 );
 		}
 
 		// Save new number of requests in this interval
-		WP_Temporary::update( 'cloudflare_purge_requests_limit', $requests + 1, 15 * MINUTE_IN_SECONDS );
+		WP_Temporary::update( 'purge_cache_for_cloudflare_requests_limit', $requests + 1, 15 * MINUTE_IN_SECONDS );
 
 		$defaults = array(
 			'headers' => array(
@@ -316,7 +316,7 @@ class CloudFlare_Purge {
 	 */
 	public function get_zone_id() {
 		// If not cached, get raw
-		if ( false === ( $zone_id = get_transient( 'cloudflare_purge_zone_id' ) ) ) {
+		if ( false === ( $zone_id = get_transient( 'purge_cache_for_cloudflare_zone_id' ) ) ) {
 			$domain = parse_url( site_url(), PHP_URL_HOST );
 
 			$response = $this->request( 'zones?name?' . $domain, array( 'method' => 'GET' ) );
@@ -331,7 +331,7 @@ class CloudFlare_Purge {
 			$zone_id = $response_body->result[0]->id;
 
 			// Save to cache for an hour
-			set_transient( 'cloudflare_purge_zone_id', $zone_id, HOUR_IN_SECONDS );
+			set_transient( 'purge_cache_for_cloudflare_zone_id', $zone_id, HOUR_IN_SECONDS );
 		}
 
 		return $zone_id;
@@ -423,7 +423,7 @@ class CloudFlare_Purge {
 		 * @param string  $old_status Old post status.
 		 * @param WP_Post $_post      Post object.
 		 */
-		do_action( 'cloudflare_purge_transition_post_status', $new_status, $old_status, $_post );
+		do_action( 'purge_cache_for_cloudflare_transition_post_status', $new_status, $old_status, $_post );
 	}
 
 	/**
@@ -463,7 +463,7 @@ class CloudFlare_Purge {
 		}
 
 		// Get existing value
-		$option = get_option( 'cloudflare_purge_urls', array() );
+		$option = get_option( 'purge_cache_for_cloudflare_urls', array() );
 
 		$option[] = array(
 			'url'      => $url,
@@ -471,7 +471,7 @@ class CloudFlare_Purge {
 			'expires'  => time() + $this->cache_timeout(),
 		);
 
-		update_option( 'cloudflare_purge_urls', $option );
+		update_option( 'purge_cache_for_cloudflare_urls', $option );
 	}
 
 	/**
@@ -488,7 +488,7 @@ class CloudFlare_Purge {
 		$urls = array();
 
 		// Get existing value
-		$option = get_option( 'cloudflare_purge_urls', array() );
+		$option = get_option( 'purge_cache_for_cloudflare_urls', array() );
 
 		if ( ! $option ) {
 			return $urls;
@@ -551,7 +551,7 @@ class CloudFlare_Purge {
 	 */
 	public function remove_urls( $urls ) {
 		// Get existing value
-		$option = get_option( 'cloudflare_purge_urls', array() );
+		$option = get_option( 'purge_cache_for_cloudflare_urls', array() );
 
 		$time = time();
 
@@ -576,7 +576,7 @@ class CloudFlare_Purge {
 			$new_key++;
 		}
 
-		update_option( 'cloudflare_purge_urls', $new_option );
+		update_option( 'purge_cache_for_cloudflare_urls', $new_option );
 	}
 
 	/**
@@ -594,7 +594,7 @@ class CloudFlare_Purge {
 	 * @access public
 	 */
 	public function maybe_purge() {
-		if ( get_option( 'cloudflare_purge_urls' ) && $this->can_fetch() ) {
+		if ( get_option( 'purge_cache_for_cloudflare_urls' ) && $this->can_fetch() ) {
 			$this->purge_urls();
 		}
 	}
