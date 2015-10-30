@@ -125,7 +125,8 @@ class Purge_Cache_for_CloudFlare {
 		add_filter( 'wp_headers',             array( $this, 'wp_headers'             ), 10    );
 
 		// Register plugins action links filter
-		add_filter( 'plugin_action_links_' . $this->basename, array( $this, 'action_links' ) );
+		add_filter( 'plugin_action_links',               array( $this, 'action_links' ), 10, 2 );
+		add_filter( 'network_admin_plugin_action_links', array( $this, 'action_links' ), 10, 2 );
 
 		// Empty data for current commenter
 		add_filter( 'wp_get_current_commenter', array( $this, 'wp_get_current_commenter' ), 10 );
@@ -177,10 +178,16 @@ class Purge_Cache_for_CloudFlare {
 	 *
 	 * @access public
 	 *
-	 * @param  array $links Existing plugin's action links.
+	 * @param array  $links       Existing plugin's action links.
+	 * @param string $plugin_file Path to the plugin file.
 	 * @return array $links New plugin's action links.
 	 */
-	public function action_links( $links ) {
+	public function action_links( $links, $plugin_file ) {
+		// Check if it is for this plugin
+		if ( $this->basename != $plugin_file ) {
+			return $links;
+		}
+
 		$links['donate']   = '<a href="http://blog.milandinic.com/donate/">' . __( 'Donate', 'purge-cache-for-cloudflare' ) . '</a>';
 		$links['settings'] = '<a href="' . esc_url( $this->settings_page_url() ) . '">' . _x( 'Settings', 'plugin actions link', 'purge-cache-for-cloudflare' ) . '</a>';
 		$links['purgeall'] = '<a href="' . esc_url( add_query_arg( array( 'page' => 'cloudflare-purge-all' ), admin_url( 'options.php' ) ) ) . '">' . _x( 'Purge All', 'plugin actions link', 'purge-cache-for-cloudflare' ) . '</a>';
