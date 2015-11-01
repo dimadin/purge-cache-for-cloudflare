@@ -315,15 +315,16 @@ class Purge_Cache_for_CloudFlare {
 	}
 
 	/**
-	 * Get unique zone ID for a domain.
+	 * Get unique zone data for a domain.
 	 *
-	 * @access public
+	 * @access protected
 	 *
-	 * @return int $zone_id ID of a CloudFlare zone current domain belongs to.
+	 * @param string $type Type of data for a CloudFlare zone current domain belongs to.
+	 * @return string $zone_data Data of a CloudFlare zone current domain belongs to.
 	 */
-	public function get_zone_id() {
+	protected function get_zone_data( $type ) {
 		// If not cached, get raw
-		if ( false === ( $zone_id = get_transient( 'purge_cache_for_cloudflare_zone_id' ) ) ) {
+		if ( false === ( $zone_data = get_transient( 'purge_cache_for_cloudflare_zone_data' ) ) ) {
 			$domain = parse_url( site_url(), PHP_URL_HOST );
 
 			$response = $this->request( 'zones?name?' . $domain, array( 'method' => 'GET' ) );
@@ -335,13 +336,42 @@ class Purge_Cache_for_CloudFlare {
 
 			$response_body = json_decode( wp_remote_retrieve_body( $response ) );
 
-			$zone_id = $response_body->result[0]->id;
+			$zone_id   = $response_body->result[0]->id;
+			$zone_plan = $response_body->result[0]->plan->legacy_id;
+
+			$zone_data = array( 'zone_id' => $zone_id, 'zone_plan' => $zone_plan );
 
 			// Save to cache for an hour
-			set_transient( 'purge_cache_for_cloudflare_zone_id', $zone_id, HOUR_IN_SECONDS );
+			set_transient( 'purge_cache_for_cloudflare_zone_data', $zone_data, HOUR_IN_SECONDS );
 		}
 
-		return $zone_id;
+		if ( isset( $zone_data[ $type ] ) ) {
+			return $zone_data[ $type ];
+		} else {
+			return '';
+		}
+	}
+
+	/**
+	 * Get unique zone ID for a domain.
+	 *
+	 * @access public
+	 *
+	 * @return int $zone_id ID of a CloudFlare zone current domain belongs to.
+	 */
+	public function get_zone_id() {
+		return $this->get_zone_data( 'zone_id' );
+	}
+
+	/**
+	 * Get plan of the zone for a domain.
+	 *
+	 * @access public
+	 *
+	 * @return int $zone_plan Plan of a CloudFlare zone current domain belongs to.
+	 */
+	public function get_zone_plan() {
+		return $this->get_zone_data( 'zone_plan' );
 	}
 
 	/**
