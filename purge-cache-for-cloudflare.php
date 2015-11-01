@@ -1,18 +1,18 @@
 <?php
 
 /**
- * The Purge Cache for CloudFlare® Plugin
+ * The Purge Cache for CloudFlare Plugin
  *
- * Simple full HTML page cache purger for CloudFlare®.
+ * Simple full HTML page cache purger for CloudFlare.
  *
  * @package    Purge_Cache_for_CloudFlare
  * @subpackage Main
  */
 
 /**
- * Plugin Name: Purge Cache for CloudFlare®
+ * Plugin Name: Purge Cache for CloudFlare
  * Plugin URI:  http://blog.milandinic.com/wordpress/plugins/purge-cache-for-cloudflare/
- * Description: Simple full HTML page cache purger for CloudFlare®.
+ * Description: Simple full HTML page cache purger for CloudFlare.
  * Author:      Milan Dinić
  * Author URI:  http://blog.milandinic.com/
  * Version:     0.6-beta-1

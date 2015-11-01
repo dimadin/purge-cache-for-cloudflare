@@ -1,8 +1,8 @@
 <?php 
 /**
- * Purge Cache for CloudFlare® Admin Class
+ * Purge Cache for CloudFlare Admin Class
  *
- * Load Purge Cache for CloudFlare® plugin admin area.
+ * Load Purge Cache for CloudFlare plugin admin area.
  * 
  * @package    Purge_Cache_for_CloudFlare
  * @subpackage Admin

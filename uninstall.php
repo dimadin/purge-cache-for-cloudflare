@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The Purge Cache for CloudFlare® Plugin
+ * The Purge Cache for CloudFlare Plugin
  *
  * Code used when the plugin is deleted.
  *

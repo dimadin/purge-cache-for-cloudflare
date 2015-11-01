@@ -1,7 +1,7 @@
-Purge Cache for CloudFlare®
+Purge Cache for CloudFlare
 ===========================
 
-Purge Cache for CloudFlare® is a simple plugin that uses CloudFlare API to purge cache of full HTML pages when a new post is made.
+Purge Cache for CloudFlare is a simple plugin that uses CloudFlare® API to purge cache of full HTML pages when a new post is made.
 
 It works by purging front page, post's page, and main RSS feed. This should work for most sites. However, there are plenty of filters, actions, and methods that provide full customizability and extensibility.
 
