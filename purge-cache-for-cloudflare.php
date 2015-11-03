@@ -45,6 +45,7 @@ class Purge_Cache_for_CloudFlare {
 	/**
 	 * CloudFlare API base endpoint.
 	 *
+	 * @since 1.0
 	 * @access protected
 	 *
 	 * @var string
@@ -54,6 +55,7 @@ class Purge_Cache_for_CloudFlare {
 	/**
 	 * Path to plugin's directory.
 	 *
+	 * @since 1.0
 	 * @access public
 	 *
 	 * @var string
@@ -63,6 +65,7 @@ class Purge_Cache_for_CloudFlare {
 	/**
 	 * Plugin's basename.
 	 *
+	 * @since 1.0
 	 * @access public
 	 *
 	 * @var string
@@ -72,6 +75,7 @@ class Purge_Cache_for_CloudFlare {
 	/**
 	 * CloudFlare API key.
 	 *
+	 * @since 1.0
 	 * @access protected
 	 *
 	 * @var string
@@ -81,6 +85,7 @@ class Purge_Cache_for_CloudFlare {
 	/**
 	 * CloudFlare email.
 	 *
+	 * @since 1.0
 	 * @access protected
 	 *
 	 * @var string
@@ -90,6 +95,7 @@ class Purge_Cache_for_CloudFlare {
 	/**
 	 * Set class properties and add main methods to appropriate hooks.
 	 *
+	 * @since 1.0
 	 * @access public
 	 */
 	public function __construct() {
@@ -138,6 +144,7 @@ class Purge_Cache_for_CloudFlare {
 	/**
 	 * Initialize Purge_Cache_for_CloudFlare object.
 	 *
+	 * @since 1.0
 	 * @access public
 	 *
 	 * @return Purge_Cache_for_CloudFlare $instance Instance of Purge_Cache_for_CloudFlare class.
@@ -155,6 +162,7 @@ class Purge_Cache_for_CloudFlare {
 	/**
 	 * Load plugin.
 	 *
+	 * @since 1.0
 	 * @access public
 	 */
 	public static function plugins_loaded() {
@@ -165,6 +173,7 @@ class Purge_Cache_for_CloudFlare {
 	/**
 	 * Load admin class.
 	 *
+	 * @since 1.0
 	 * @access public
 	 */
 	public function admin_menu() {
@@ -176,6 +185,7 @@ class Purge_Cache_for_CloudFlare {
 	/**
 	 * Add action links to plugins page.
 	 *
+	 * @since 1.0
 	 * @access public
 	 *
 	 * @param array  $links       Existing plugin's action links.
@@ -203,6 +213,7 @@ class Purge_Cache_for_CloudFlare {
 	 * If user passed CloudFlare API limits, return false,
 	 * otherwise return number of request in current period.
 	 *
+	 * @since 1.0
 	 * @access public
 	 *
 	 * @return bool|int Number of made requests or false if reached limit.
@@ -224,6 +235,7 @@ class Purge_Cache_for_CloudFlare {
 	/**
 	 * Get page cache timeout.
 	 *
+	 * @since 1.0
 	 * @access public
 	 *
 	 * @return int $timeout Value of cache timeout. Default 1800.
@@ -231,6 +243,8 @@ class Purge_Cache_for_CloudFlare {
 	public function cache_timeout() {
 		/**
 		 * Filter value of cache timeout.
+		 *
+		 * @since 1.0
 		 *
 		 * @param int $timeout Value of cache timeout. Default 1800.
 		 */
@@ -242,6 +256,7 @@ class Purge_Cache_for_CloudFlare {
 	/**
 	 * Get nocache string.
 	 *
+	 * @since 1.0
 	 * @access public
 	 *
 	 * @return string $nocache_string Value of nocache string. Default 'wp-'.
@@ -249,6 +264,8 @@ class Purge_Cache_for_CloudFlare {
 	public function nocache_string() {
 		/**
 		 * Filter value of nocache string.
+		 *
+		 * @since 1.0
 		 *
 		 * @param string $nocache_string Value of nocache string. Default 'wp-'.
 		 */
@@ -260,6 +277,7 @@ class Purge_Cache_for_CloudFlare {
 	/**
 	 * Get URL of settings page.
 	 *
+	 * @since 1.0
 	 * @access public
 	 *
 	 * @return string $url URL of settings page.
@@ -270,6 +288,8 @@ class Purge_Cache_for_CloudFlare {
 
 		/**
 		 * Filter value of settings page URL.
+		 *
+		 * @since 1.0
 		 *
 		 * @param string $url Value of settings page URL.
 		 *                     Default URL of Settings > Writting.
@@ -282,6 +302,7 @@ class Purge_Cache_for_CloudFlare {
 	/**
 	 * Make CloudFlare API request.
 	 *
+	 * @since 1.0
 	 * @access public
 	 *
 	 * @param string $endpoint Endpoint of CloudFlare API URL.
@@ -317,6 +338,7 @@ class Purge_Cache_for_CloudFlare {
 	/**
 	 * Get unique zone data for a domain.
 	 *
+	 * @since 1.0
 	 * @access protected
 	 *
 	 * @param string $type Type of data for a CloudFlare zone current domain belongs to.
@@ -355,6 +377,7 @@ class Purge_Cache_for_CloudFlare {
 	/**
 	 * Get unique zone ID for a domain.
 	 *
+	 * @since 1.0
 	 * @access public
 	 *
 	 * @return int $zone_id ID of a CloudFlare zone current domain belongs to.
@@ -366,6 +389,7 @@ class Purge_Cache_for_CloudFlare {
 	/**
 	 * Get plan of the zone for a domain.
 	 *
+	 * @since 1.0
 	 * @access public
 	 *
 	 * @return int $zone_plan Plan of a CloudFlare zone current domain belongs to.
@@ -377,6 +401,7 @@ class Purge_Cache_for_CloudFlare {
 	/**
 	 * Purge files from CloudFlare cache.
 	 *
+	 * @since 1.0
 	 * @access public
 	 *
 	 * @return WP_Error|array $response The response or WP_Error on failure. 
@@ -408,6 +433,7 @@ class Purge_Cache_for_CloudFlare {
 	/**
 	 * Purge all files from CloudFlare cache.
 	 *
+	 * @since 1.0
 	 * @access public
 	 *
 	 * @return WP_Error|array $response The response or WP_Error on failure. 
@@ -430,6 +456,7 @@ class Purge_Cache_for_CloudFlare {
 	/**
 	 * Purge basic cache URLs when post is transitioned.
 	 *
+	 * @since 1.0
 	 * @access public
 	 *
 	 * @param string  $new_status New post status.
@@ -456,6 +483,8 @@ class Purge_Cache_for_CloudFlare {
 		/**
 		 * Fires when a post is transitioned from one status to another.
 		 *
+		 * @since 1.0
+		 *
 		 * @param string  $new_status New post status.
 		 * @param string  $old_status Old post status.
 		 * @param WP_Post $_post      Post object.
@@ -466,6 +495,7 @@ class Purge_Cache_for_CloudFlare {
 	/**
 	 * Set additional headers for caching.
 	 *
+	 * @since 1.0
 	 * @access public
 	 *
 	 * @param array $headers The list of headers to be sent.
@@ -487,6 +517,7 @@ class Purge_Cache_for_CloudFlare {
 	 *
 	 * TODO: only unique URLs
 	 *
+	 * @since 1.0
 	 * @access public
 	 *
 	 * @param string $url URL whose cache should be purged.
@@ -516,6 +547,7 @@ class Purge_Cache_for_CloudFlare {
 	 *
 	 * Always return from top based on priority.
 	 *
+	 * @since 1.0
 	 * @access public
 	 *
 	 * @return array $urls An array of URLs that should be purged,
@@ -582,6 +614,7 @@ class Purge_Cache_for_CloudFlare {
 	/**
 	 * Remove an array uf URLs from previous array.
 	 *
+	 * @since 1.0
 	 * @access public
 	 *
 	 * @param array $urls An array of URLs that should be removed.
@@ -619,6 +652,7 @@ class Purge_Cache_for_CloudFlare {
 	/**
 	 * Purge expired URLs from database option.
 	 *
+	 * @since 1.0
 	 * @access public
 	 */
 	public function purge_expired_urls() {
@@ -639,6 +673,7 @@ class Purge_Cache_for_CloudFlare {
 	/**
 	 * Return empty values for current commenter data.
 	 *
+	 * @since 1.0
 	 * @access public
 	 *
 	 * @param array $comment_author_data {
@@ -675,6 +710,7 @@ class Purge_Cache_for_CloudFlare {
 	/**
 	 * Catch response to rewrite all links to nocache variants.
 	 *
+	 * @since 1.0
 	 * @access public
 	 */
 	public function nocache_start_ob() {
@@ -692,6 +728,7 @@ class Purge_Cache_for_CloudFlare {
 	/**
 	 * Rewrite all links in a response to nocache variants.
 	 *
+	 * @since 1.0
 	 * @access public
 	 */
 	public function nocache_end_ob() {

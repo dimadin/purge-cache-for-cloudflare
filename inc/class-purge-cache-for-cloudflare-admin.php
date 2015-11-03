@@ -18,6 +18,7 @@ class Purge_Cache_for_CloudFlare_Admin {
 	/**
 	 * Purge_Cache_for_CloudFlare class instance.
 	 *
+	 * @since 1.0
 	 * @access protected
 	 */
 	protected $purge_cache_for_cloudflare;
@@ -25,6 +26,7 @@ class Purge_Cache_for_CloudFlare_Admin {
 	/**
 	 * Add main method to appropriate hook.
 	 *
+	 * @since 1.0
 	 * @access public
 	 */
 	public function __construct() {
@@ -41,6 +43,7 @@ class Purge_Cache_for_CloudFlare_Admin {
 	/**
 	 * Initialize Purge_Cache_for_CloudFlare_Admin object.
 	 *
+	 * @since 1.0
 	 * @access public
 	 *
 	 * @return Purge_Cache_for_CloudFlare_Admin $instance Instance of Purge_Cache_for_CloudFlare_Admin class.
@@ -58,6 +61,7 @@ class Purge_Cache_for_CloudFlare_Admin {
 	/**
 	 * Get name of the page where do settings fields appear.
 	 *
+	 * @since 1.0
 	 * @access public
 	 *
 	 * @return string $page Name of the settings page. Default 'writting'.
@@ -76,6 +80,7 @@ class Purge_Cache_for_CloudFlare_Admin {
 	/**
 	 * Get name of the section where do settings fields appear.
 	 *
+	 * @since 1.0
 	 * @access public
 	 *
 	 * @return string $section Name of the settings section. Default 'default'.
@@ -83,6 +88,8 @@ class Purge_Cache_for_CloudFlare_Admin {
 	public function get_settings_section() {
 		/**
 		 * Filter name of the section.
+		 *
+		 * @since 1.0
 		 *
 		 * @param string $section Name of the section. Default 'default'.
 		 */
@@ -94,6 +101,7 @@ class Purge_Cache_for_CloudFlare_Admin {
 	/**
 	 * Get name of the option group where do settings fields appear.
 	 *
+	 * @since 1.0
 	 * @access public
 	 *
 	 * @return string $option_group Name of the option group. Default 'writing'.
@@ -101,6 +109,8 @@ class Purge_Cache_for_CloudFlare_Admin {
 	public function get_option_group() {
 		/**
 		 * Filter name of the option group.
+		 *
+		 * @since 1.0
 		 *
 		 * @param string $option_group Name of the option group. Default 'writting'.
 		 */
@@ -112,6 +122,7 @@ class Purge_Cache_for_CloudFlare_Admin {
 	/**
 	 * Register settings fields.
 	 *
+	 * @since 1.0
 	 * @access public
 	 */
 	public function register_settings() {
@@ -141,6 +152,7 @@ class Purge_Cache_for_CloudFlare_Admin {
 	/**
 	 * Display CloudFlare API Key settings field.
 	 *
+	 * @since 1.0
 	 * @access public
 	 */
 	public function render_api_key() {
@@ -157,6 +169,7 @@ class Purge_Cache_for_CloudFlare_Admin {
 	/**
 	 * Display CloudFlare Email Address settings field.
 	 *
+	 * @since 1.0
 	 * @access public
 	 */
 	public function render_email() {
@@ -173,6 +186,7 @@ class Purge_Cache_for_CloudFlare_Admin {
 	/**
 	 * Register page for purging all files.
 	 *
+	 * @since 1.0
 	 * @access public
 	 */
 	public function register_purge_all_page() {
@@ -189,6 +203,7 @@ class Purge_Cache_for_CloudFlare_Admin {
 	/**
 	 * Display settings page.
 	 *
+	 * @since 1.0
 	 * @access public
 	 */
 	public function display_purge_all_page() {
