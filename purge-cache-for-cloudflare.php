@@ -15,7 +15,7 @@
  * Description: Simple full HTML page cache purger for CloudFlare.
  * Author:      Milan Dinić
  * Author URI:  http://blog.milandinic.com/
- * Version:     0.6-beta-1
+ * Version:     1.0
  * Text Domain: purge-cache-for-cloudflare
  * Domain Path: /languages/
  * License:     GPL
