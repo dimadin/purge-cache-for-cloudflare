@@ -1,7 +1,7 @@
 {
 	"name": "dimadin/purge-cache-for-cloudflare",
 	"description": "Simple full HTML page cache purger for CloudFlare",
-	"keywords": ["wordpress, cloudflare, cache"],
+	"keywords": ["wordpress", "cloudflare", "cache"],
 	"type": "wordpress-plugin",
 	"homepage": "http://blog.milandinic.com/wordpress/plugins/purge-cache-for-cloudflare/",
 	"license": "GPL-2.0+",
