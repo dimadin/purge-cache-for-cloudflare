@@ -5,9 +5,9 @@ Purge Cache for CloudFlare
 
 Purge Cache for CloudFlare is a simple plugin that uses CloudFlare® API to purge cache of full HTML pages when a new post is made.
 
-This free version only for basic usage. If you want to use it in full capacity, consider buying [premium version](https://shop.milandinic.com/downloads/purge-cache-for-cloudflare-plus).
+This free version is only indended for basic usage. If you want to use it in full capacity, consider buying [premium version](https://shop.milandinic.com/downloads/purge-cache-for-cloudflare-plus).
 
-It works by purging front page, post's page, and main RSS feed. This should work for most sites. However, there are plenty of filters, actions, and methods that provide full customizability and extensibility.
+It works by purging front page, post's page, and main RSS feed. This should work for most sites. However, there are of filters, actions, and methods that provide full customizability and extensibility.
 
 Note that this plugin also sets cache to 30 minutes for all frontend pages. This means that if you use default option in CloudFlare, it tells them to revalidate page cache after that time, so it means that cache for any page expires on CloudFlare servers after that time.
 
