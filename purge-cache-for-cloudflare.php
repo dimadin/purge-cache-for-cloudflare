@@ -314,7 +314,7 @@ class Purge_Cache_for_CloudFlare {
 		$requests = $this->can_fetch();
 
 		if ( ! $requests ) {
-			return new WP_Error( 'purge-cache-for-cloudflare-requests-limit', __( 'Requests limit passed.' ), 429 );
+			return new WP_Error( 'purge-cache-for-cloudflare-requests-limit', __( 'Requests limit passed.', 'purge-cache-for-cloudflare' ), 429 );
 		}
 
 		// Save new number of requests in this interval
