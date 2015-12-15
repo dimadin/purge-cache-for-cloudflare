@@ -404,7 +404,7 @@ class Purge_Cache_for_CloudFlare {
 	 * @since 1.0
 	 * @access public
 	 *
-	 * @return WP_Error|array $response The response or WP_Error on failure. 
+	 * @return WP_Error|array $response The response or WP_Error on failure.
 	 */
 	public function purge_urls() {
 		if ( ! $urls = $this->get_urls() ) {
@@ -436,7 +436,7 @@ class Purge_Cache_for_CloudFlare {
 	 * @since 1.0
 	 * @access public
 	 *
-	 * @return WP_Error|array $response The response or WP_Error on failure. 
+	 * @return WP_Error|array $response The response or WP_Error on failure.
 	 */
 	public function purge_all() {
 		$args = array(
@@ -625,8 +625,8 @@ class Purge_Cache_for_CloudFlare {
 
 		$time = time();
 
-		foreach ( $option as $key => $entry ) {			
-				// Check if URL is in entry 
+		foreach ( $option as $key => $entry ) {
+				// Check if URL is in entry
 				if ( in_array( $entry['url'], $urls ) ) {
 					unset( $option[ $key ] );
 				}
