@@ -134,6 +134,9 @@ class Purge_Cache_for_CloudFlare {
 		add_filter( 'plugin_action_links',               array( $this, 'action_links' ), 10, 2 );
 		add_filter( 'network_admin_plugin_action_links', array( $this, 'action_links' ), 10, 2 );
 
+		// Register plugin row meta link filter
+		add_filter( 'plugin_row_meta', array( $this, 'row_meta' ), 10, 2 );
+
 		// Empty data for current commenter
 		add_filter( 'wp_get_current_commenter', array( $this, 'wp_get_current_commenter' ), 10 );
 
@@ -200,9 +203,29 @@ class Purge_Cache_for_CloudFlare {
 
 		$links['donate']   = '<a href="http://blog.milandinic.com/donate/">' . __( 'Donate', 'purge-cache-for-cloudflare' ) . '</a>';
 		$links['settings'] = '<a href="' . esc_url( $this->settings_page_url() ) . '">' . _x( 'Settings', 'plugin actions link', 'purge-cache-for-cloudflare' ) . '</a>';
-		$links['purgeall'] = '<a href="' . esc_url( add_query_arg( array( 'page' => 'cloudflare-purge-all' ), admin_url( 'options.php' ) ) ) . '">' . _x( 'Purge All', 'plugin actions link', 'purge-cache-for-cloudflare' ) . '</a>';
 		$links['wpdev']    = '<a href="http://blog.milandinic.com/wordpress/custom-development/">' . __( 'WordPress Developer', 'purge-cache-for-cloudflare' ) . '</a>';
 		$links['premium']  = '<strong><a href="https://shop.milandinic.com/downloads/purge-cache-for-cloudflare-plus/">' . __( 'Premium Version', 'purge-cache-for-cloudflare' ) . '</a></strong>';
+
+		return $links;
+	}
+
+	/**
+	 * Add row meta links to plugins page.
+	 *
+	 * @since 1.2
+	 * @access public
+	 *
+	 * @param array  $links       Existing plugin's row meta links.
+	 * @param string $plugin_file Path to the plugin file.
+	 * @return array $links New plugin's row meta links.
+	 */
+	public function row_meta( $links, $plugin_file ) {
+		// Check if it is for this plugin
+		if ( $this->basename != $plugin_file ) {
+			return $links;
+		}
+
+		$links[] = '<a href="' . esc_url( add_query_arg( array( 'page' => 'cloudflare-purge-all' ), admin_url( 'options.php' ) ) ) . '">' . _x( 'Purge All', 'plugin actions link', 'purge-cache-for-cloudflare' ) . '</a>';
 
 		return $links;
 	}
