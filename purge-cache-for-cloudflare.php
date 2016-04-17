@@ -201,8 +201,8 @@ class Purge_Cache_for_CloudFlare {
 			return $links;
 		}
 
-		$links['donate']   = '<a href="http://blog.milandinic.com/donate/">' . __( 'Donate', 'purge-cache-for-cloudflare' ) . '</a>';
 		$links['settings'] = '<a href="' . esc_url( $this->settings_page_url() ) . '">' . _x( 'Settings', 'plugin actions link', 'purge-cache-for-cloudflare' ) . '</a>';
+		$links['donate']   = '<a href="http://blog.milandinic.com/donate/">' . __( 'Donate', 'purge-cache-for-cloudflare' ) . '</a>';
 		$links['wpdev']    = '<a href="http://blog.milandinic.com/wordpress/custom-development/">' . __( 'WordPress Developer', 'purge-cache-for-cloudflare' ) . '</a>';
 		$links['premium']  = '<strong><a href="https://shop.milandinic.com/downloads/purge-cache-for-cloudflare-plus/">' . __( 'Premium Version', 'purge-cache-for-cloudflare' ) . '</a></strong>';
 
