@@ -130,6 +130,9 @@ class Purge_Cache_for_CloudFlare {
 		// Add caching headers
 		add_filter( 'wp_headers',             array( $this, 'wp_headers'             ), 10    );
 
+		// Don't cache search pages
+		add_filter( 'wp_headers',             array( $this, 'nocache_search'         ), 11, 2 );
+
 		// Register plugins action links filter
 		add_filter( 'plugin_action_links',               array( $this, 'action_links' ), 10, 2 );
 		add_filter( 'network_admin_plugin_action_links', array( $this, 'action_links' ), 10, 2 );
@@ -530,6 +533,24 @@ class Purge_Cache_for_CloudFlare {
 			$timeout = $this->cache_timeout();
 
 			$headers['Cache-Control'] = 'public, max-age=' . $timeout;
+		}
+
+		return $headers;
+	}
+
+	/**
+	 * Set headers that prevent caching for search.
+	 *
+	 * @since 1.2
+	 * @access public
+	 *
+	 * @param array $headers The list of headers to be sent.
+	 * @param WP    $wp      Current WordPress environment instance.
+	 * @return array $headers Modifies list of headers to be sent.
+	 */
+	public function nocache_search( $headers, $wp ) {
+		if ( isset( $wp->query_vars['s'] ) && $wp->query_vars['s'] ) {
+			$headers = array_merge( $headers, wp_get_nocache_headers() );
 		}
 
 		return $headers;
