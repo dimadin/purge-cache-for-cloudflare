@@ -668,15 +668,15 @@ class Purge_Cache_for_CloudFlare {
 		$time = time();
 
 		foreach ( $option as $key => $entry ) {
-				// Check if URL is in entry
-				if ( in_array( $entry['url'], $urls ) ) {
-					unset( $option[ $key ] );
-				}
-			
-				// Check if entry expired
-				if ( $time > $entry['expires'] ) {
-					unset( $option[ $key ] );
-				}
+			// Check if URL is in entry
+			if ( in_array( $entry['url'], $urls ) ) {
+				unset( $option[ $key ] );
+			}
+
+			// Check if entry expired
+			if ( $time > $entry['expires'] ) {
+				unset( $option[ $key ] );
+			}
 		}
 
 		// Create new option array
