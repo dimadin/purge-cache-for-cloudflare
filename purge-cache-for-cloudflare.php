@@ -559,8 +559,6 @@ class Purge_Cache_for_CloudFlare {
 	/**
 	 * Set URL whose cache should be purged.
 	 *
-	 * TODO: only unique URLs
-	 *
 	 * @since 1.0
 	 * @access public
 	 *
