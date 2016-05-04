@@ -25,7 +25,9 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 // Load dependencies
-require __DIR__ . '/vendor/autoload.php';
+if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
+	require __DIR__ . '/vendor/autoload.php';
+}
 
 /*
  * Initialize a plugin.
