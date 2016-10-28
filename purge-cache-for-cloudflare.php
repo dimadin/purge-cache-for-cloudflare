@@ -377,7 +377,7 @@ class Purge_Cache_for_CloudFlare {
 		if ( false === ( $zone_data = get_transient( 'purge_cache_for_cloudflare_zone_data' ) ) ) {
 			$domain = parse_url( site_url(), PHP_URL_HOST );
 
-			$response = $this->request( 'zones?name?' . $domain, array( 'method' => 'GET' ) );
+			$response = $this->request( 'zones?name=' . $domain, array( 'method' => 'GET' ) );
 
 			// Response should have appropiate code
 			if ( 200 != wp_remote_retrieve_response_code( $response ) ) {
